@@ -2,225 +2,181 @@
 
 ## Background
 
-Competitor intelligence for AI Search APIs requires continuous tracking across multiple public channels.
+The project was built to support recurring competitor research for AI Search API products.
 
-Important updates may appear on:
-
-- Official websites
-- Product blogs
-- Changelogs
-- Documentation
-- GitHub
-- Social media
-- Community channels
-- Partnership or event pages
-
-Relying on a single retrieval method makes it difficult to maintain both coverage and efficiency.
+The monitoring scope included competitors such as Tavily, Exa, and Brave Search, with updates distributed across official websites, documentation, GitHub, social platforms, and other public channels.
 
 ---
 
-## Problem Definition
+## Core Problem
 
-The initial monitoring approach relied heavily on keyword-based retrieval.
+A single retrieval method could not reliably cover all monitored sources.
 
-During testing, several limitations became clear:
+During actual monitoring, different sources showed different access and discovery characteristics.
 
-### 1. Incomplete coverage
+For example:
 
-Some important updates were not reliably discovered through generic keyword search, especially when they were published on specific official pages or repositories.
+- Official blogs contain structured product announcements.
+- Documentation pages may change without appearing as normal news articles.
+- GitHub updates are represented through repositories, commits, releases, pull requests, or documentation changes.
+- X, LinkedIn, and Discord have stronger automated-access limitations.
 
-### 2. Different source characteristics
-
-Information sources behave differently.
-
-Official websites, documentation pages, GitHub repositories, and social platforms have different structures, update patterns, and accessibility constraints.
-
-A single retrieval strategy could not handle all sources equally well.
-
-### 3. Duplicate and noisy results
-
-Search-based discovery could return repeated, outdated, or irrelevant content, increasing manual review cost.
-
-### 4. Fragmented review workflow
-
-Updates discovered from different channels had to be reviewed separately, making weekly competitor tracking inefficient.
+The monitoring workflow therefore needed different handling strategies for different source types.
 
 ---
 
-## Design Goal
+## Product Approach
 
-The redesigned monitoring dashboard focused on four goals:
+The final monitoring mechanism separates discovery into three paths.
 
-- Improve update discovery coverage
-- Prioritize high-confidence official sources
-- Reduce duplicate and irrelevant results
-- Centralize updates into a unified review workflow
+### Official-source monitoring
 
----
+Structured official sources are actively checked.
 
-## Solution
+The system recognizes entry pages and drills down into specific updates rather than treating an index page as an update itself.
 
-The final workflow combines three complementary discovery methods:
+### Search API discovery
 
-### 1. Official Source Monitoring
+Search API retrieval provides additional discovery coverage.
 
-Official sources are treated as the primary monitoring path.
+Instead of using one broad query, queries are split by source type and constrained by competitor and time window.
 
-Typical sources include:
+### Manual URL supplementation
 
-- Official websites
-- Blogs
-- Changelogs
-- Documentation
-- GitHub repositories
+Restricted channels are retained in the workflow through manual URL input.
 
-The purpose is to directly monitor channels where product and technical updates are most likely to appear.
-
-### 2. Search API Discovery
-
-Search API retrieval is used as a supplementary discovery layer.
-
-It helps identify public updates that may not be included in the predefined official-source list.
-
-Queries can be adjusted by:
-
-- Competitor
-- Source type
-- Monitoring category
-- Date range
-- Monitoring objective
-
-### 3. Manual Supplementation
-
-Some sources are difficult to monitor reliably through automated methods.
-
-For these channels, relevant public URLs can be manually added into the workflow.
-
-This keeps human review as part of the system rather than treating manual work as an exception outside the dashboard.
+This allows publicly available social or community updates to be analyzed together with automatically discovered records.
 
 ---
 
-## Processing Workflow
+## Source-specific Design
 
-After discovery, results enter a shared processing workflow:
+### Blog
+
+Blog index pages are treated as entry pages.
+
+The system drills down to individual articles and checks whether their publication dates fall inside the monitoring window.
+
+### Documentation
+
+Documentation entry pages can be expanded into individual documentation pages.
+
+Update timestamps can be obtained from available page or sitemap metadata.
+
+### GitHub
+
+GitHub repositories are treated as structured technical sources.
+
+The system distinguishes different GitHub object types such as:
+
+- Repository
+- Commit
+- Release
+- Pull request
+- Issue
+- Documentation-related pages
+
+GitHub changes can also be classified by update type.
+
+### Restricted Social Sources
+
+For sources where stable automatic fetching is not available, the system retains the URL and marks the record for manual handling rather than discarding it.
+
+---
+
+## Time-window Control
+
+Competitor research is performed within a defined monitoring period.
+
+Search queries use explicit start and end dates.
+
+Official-source results are also evaluated against the same monitoring window.
+
+This prevents older content from being mixed directly into the current monitoring batch.
+
+---
+
+## Quality Control
+
+The workflow contains several checks before an update becomes a confirmed record.
+
+### Source Authority
+
+Results are evaluated based on whether they come from:
+
+- Official sources
+- Ecosystem or partner sources
+- Third-party sources
+- Unknown sources
+- Low-value aggregators
+
+### Relevance
+
+Results are evaluated against the target competitor and known monitoring targets.
+
+### Freshness
+
+Published or updated dates are compared against the selected monitoring window.
+
+### Duplicate Detection
+
+Normalized URLs are checked against existing records before import.
+
+### Manual Review
+
+Records can be reviewed before being confirmed into the dashboard.
+
+---
+
+## Benchmark Validation
+
+A benchmark set of manually identified competitor events was used during development to evaluate retrieval recall.
+
+The benchmark workflow compares discovered results with expected events using information such as:
+
+- Exact URL
+- Domain
+- Keywords
+- Event title
+
+This benchmark was used to test and improve the retrieval workflow rather than being part of the final competitor dashboard itself.
+
+---
+
+## Human + Automated Workflow
+
+The project does not assume that every information source can be fully automated.
+
+Instead, the working model is:
 
 ```text
-Discovery
-    ↓
-Relevance Filtering
-    ↓
-Date Validation
-    ↓
-Deduplication
-    ↓
-Category Assignment
-    ↓
-Summary
-    ↓
-Unified Dashboard
-```
-
-This allows results from different discovery methods to be reviewed using the same structure.
-
----
-
-## Information Structure
-
-Competitor updates are organized by dimensions such as:
-
-- Product updates
-- API and documentation changes
-- GitHub activity
-- Ecosystem integrations
-- Partnerships
-- Events
-- Use cases
-- Benchmarks
-
-This structure supports both single-competitor tracking and cross-competitor comparison.
-
----
-
-## Product Iteration
-
-The monitoring workflow was iterated based on actual retrieval performance.
-
-### Early Approach
-
-```text
-Keyword-based Search
-        ↓
-Manual Review
-```
-
-This approach was simple, but coverage depended heavily on query quality and search indexing.
-
-### Intermediate Exploration
-
-Different query strategies and source-specific retrieval methods were tested to improve discovery quality.
-
-However, relying primarily on search still created coverage gaps for important official updates.
-
-### Final Approach
-
-```text
-Official Source Monitoring
-        +
-Search API Discovery
+Automated Monitoring
         +
 Manual Supplementation
         ↓
-Unified Processing
+Shared Processing
         ↓
-Dashboard
+Manual Review
+        ↓
+Confirmed Dashboard Records
 ```
 
-The final design separates information discovery into multiple paths based on source characteristics, then brings the results back into a shared analysis and review workflow.
+Official websites, blogs, documentation, changelogs, and GitHub are the main targets for automated processing.
+
+Restricted social and community sources can be supplemented manually.
 
 ---
 
-## Key Product Decisions
+## Output
 
-### Official sources first
+Confirmed records are used for recurring competitor monitoring and weekly review.
 
-Official channels are prioritized because they provide higher-confidence information and clearer update ownership.
-
-### Search as supplementation, not the only entry point
-
-Search API retrieval improves coverage but is not treated as the sole monitoring method.
-
-### Human-in-the-loop by design
-
-Manual supplementation is retained for sources that are difficult to automate reliably.
-
-Instead of attempting full automation, the system focuses on reducing repetitive work while preserving necessary human judgment.
-
-### Unified downstream processing
-
-Regardless of how an update is discovered, it enters the same filtering, classification, and review workflow.
-
-This reduces fragmentation across monitoring channels.
-
----
-
-## Outcome
-
-The redesigned workflow established a more structured competitor monitoring process across multiple AI Search API competitors.
-
-It enabled:
-
-- More systematic official-source tracking
-- Supplementary discovery through Search APIs
-- Structured handling of manually added sources
-- Unified classification and review
-- Weekly competitor update aggregation
-
-The project also provided a reusable framework for evaluating which parts of competitive intelligence monitoring should be automated and where human review remains necessary.
+The system also retains historical confirmed records for later reference.
 
 ---
 
 ## Repository Scope
 
-This document describes a sanitized reconstruction of the product design process.
+This document only describes product decisions supported by the reconstructed project.
 
-It does not include confidential business strategies, internal data, proprietary infrastructure, credentials, or non-public information from previous employers.
+It excludes confidential strategy, internal business data, proprietary infrastructure, and non-public information.
