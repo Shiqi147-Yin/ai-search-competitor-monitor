@@ -1,166 +1,90 @@
-# Sample Dashboard
+# Sample Dashboard Output
 
-This page demonstrates the structure of the competitor monitoring dashboard using sanitized sample data.
+This file demonstrates a sanitized example of the type of confirmed competitor records managed by the monitoring dashboard.
 
-All examples below are illustrative and do not contain confidential business information.
+It is not a reproduction of the original internal interface.
 
 ---
 
-## Weekly Monitoring Overview
+## Weekly View
 
 **Monitoring Window:** 2026-08-08 to 2026-08-14
 
-**Tracked Competitors:** 3
+**Competitors:** Tavily, Exa, Brave Search
 
-**Sources Covered:**
-
-- Official websites
-- Blogs
-- Documentation
-- GitHub
-- Public social links
-- Search API discovery
+| Competitor | Date | Source | Category | Title | URL |
+|---|---|---|---|---|---|
+| Example A | 2026-08-10 | Official Blog | Product | Example product update | https://example.com/a |
+| Example B | 2026-08-11 | GitHub | Ecosystem | Example integration update | https://example.com/b |
+| Example C | 2026-08-12 | Documentation | Documentation | Example documentation update | https://example.com/c |
 
 ---
 
-## Update Summary
-
-| Competitor | Category | Source | Date | Update |
-|---|---|---|---|---|
-| Example A | Product Update | Official Blog | 2026-08-10 | Updated search capability and retrieval workflow |
-| Example B | Ecosystem Integration | GitHub | 2026-08-11 | Added support for a new developer integration |
-| Example C | Documentation | Official Docs | 2026-08-12 | Updated API usage documentation |
-| Example A | Benchmark | Official Blog | 2026-08-13 | Published a new evaluation result |
-| Example B | Partnership | Public Announcement | 2026-08-14 | Announced a new ecosystem partnership |
-
----
-
-## Competitor View
-
-### Example A
-
-**Product Updates**
-
-- Search capability update
-- Retrieval workflow adjustment
-
-**Benchmark**
-
-- New evaluation result published
-
-**Source Coverage**
-
-- Official Blog
-- Documentation
-- GitHub
-
----
-
-### Example B
-
-**Ecosystem Updates**
-
-- New developer integration
-
-**Partnerships**
-
-- New ecosystem partnership
-
-**Source Coverage**
-
-- GitHub
-- Public announcement
-- Search API discovery
-
----
-
-### Example C
-
-**Documentation Updates**
-
-- API usage documentation updated
-
-**Source Coverage**
-
-- Official Docs
-- GitHub
-
----
-
-## Category View
-
-### Product Updates
-
-- Example A — Search capability update
-
-### API & Documentation
-
-- Example C — API usage documentation updated
-
-### Ecosystem Integrations
-
-- Example B — New developer integration
-
-### Partnerships
-
-- Example B — New ecosystem partnership
-
-### Benchmarks
-
-- Example A — New evaluation result published
-
----
-
-## Source Review
-
-Updates are collected through three complementary paths:
-
-| Discovery Method | Typical Sources | Role |
-|---|---|---|
-| Official Source Monitoring | Website, Blog, Docs, GitHub | Primary discovery |
-| Search API Discovery | Public web results | Supplementary discovery |
-| Manual Supplementation | Social posts, event pages, community links | Coverage for difficult-to-automate sources |
-
----
-
-## Review Workflow
+## Record Lifecycle
 
 ```text
-Raw Updates
-    ↓
-Relevance Review
-    ↓
-Date Validation
-    ↓
-Deduplication
-    ↓
-Category Assignment
-    ↓
-Summary
-    ↓
+Discovered / Imported
+        ↓
+Processed
+        ↓
+Reviewed
+        ↓
+Confirmed
+        ↓
 Weekly Dashboard
+        ↓
+History
 ```
+
+Only reviewed and confirmed records are represented in the final dashboard output.
 
 ---
 
-## Example Monitoring Record
+## Discovery Metadata
+
+A monitoring record may retain information related to its discovery and processing, including:
 
 ```json
 {
   "competitor": "Example A",
-  "date": "2026-08-10",
-  "source_type": "official_blog",
-  "category": "product_update",
-  "title": "Example Search Product Update",
-  "url": "https://example.com/update",
-  "summary": "An illustrative product update used for portfolio demonstration."
+  "source_url": "https://example.com/update",
+  "source_platform": "Blog",
+  "published_at": "2026-08-10",
+  "freshness_status": "within_window",
+  "official_source": true,
+  "review_status": "confirmed"
 }
+```
+
+The fields above are illustrative representations of the types of metadata used in the monitoring workflow.
+
+---
+
+## Source Handling
+
+```text
+Official Blog / Docs / GitHub
+            ↓
+     Automated Processing
+
+Search API Results
+            ↓
+     Automated Processing
+
+X / LinkedIn / Restricted Sources
+            ↓
+       Manual URL Input
+            ↓
+
+        Shared Review
+            ↓
+     Confirmed Dashboard
 ```
 
 ---
 
 ## Notes
 
-This demo focuses on the information structure and review workflow of the monitoring dashboard.
+This demo intentionally uses sample records rather than real internal monitoring data.
 
-The original project involved real competitor monitoring and source-specific retrieval logic. This public version uses sanitized sample data and excludes internal configuration, credentials, proprietary code, and non-public business information.
+The original project includes weekly dashboard and historical record views, but the interface and confidential business data are not reproduced here.
