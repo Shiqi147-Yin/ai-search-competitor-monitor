@@ -1,90 +1,13 @@
-# Sample Dashboard Output
+# 示例看板数据
 
-This file demonstrates a sanitized example of the type of confirmed competitor records managed by the monitoring dashboard.
+[示例 JSON](sample_updates.json) 使用 `competitor_updates` 实际支持的字段及中文枚举值。全部内容为虚构演示，不代表真实产品新闻、内部监测数据或实际巡检效果。它是开发用字段示例；当前界面没有 JSON 上传入口，界面导入请使用 Excel 或 URL。
 
-It is not a reproduction of the original internal interface.
+| 示例 | 分类 | 审核状态 | 是否进入周看板 |
+| --- | --- | --- | --- |
+| 示例动态 1 | 产品与功能 | 已确认 | 当前周次为 2026-W37 时显示 |
+| 示例动态 2 | 生态与集成 | 待审核 | 不显示，等待审核 |
+| 示例动态 3 | 市场与运营 | 已确认 | 当前周次为 2026-W37 时显示 |
 
----
+所有示例竞品设为 `Other`，链接使用 `example.com`。`publish_date` 表示来源日期，`collected_at` 表示收录时间，`week_id` 决定周看板归属。
 
-## Weekly View
-
-**Monitoring Window:** 2026-08-08 to 2026-08-14
-
-**Competitors:** Tavily, Exa, Brave Search
-
-| Competitor | Date | Source | Category | Title | URL |
-|---|---|---|---|---|---|
-| Example A | 2026-08-10 | Official Blog | Product | Example product update | https://example.com/a |
-| Example B | 2026-08-11 | GitHub | Ecosystem | Example integration update | https://example.com/b |
-| Example C | 2026-08-12 | Documentation | Documentation | Example documentation update | https://example.com/c |
-
----
-
-## Record Lifecycle
-
-```text
-Discovered / Imported
-        ↓
-Processed
-        ↓
-Reviewed
-        ↓
-Confirmed
-        ↓
-Weekly Dashboard
-        ↓
-History
-```
-
-Only reviewed and confirmed records are represented in the final dashboard output.
-
----
-
-## Discovery Metadata
-
-A monitoring record may retain information related to its discovery and processing, including:
-
-```json
-{
-  "competitor": "Example A",
-  "source_url": "https://example.com/update",
-  "source_platform": "Blog",
-  "published_at": "2026-08-10",
-  "freshness_status": "within_window",
-  "official_source": true,
-  "review_status": "confirmed"
-}
-```
-
-The fields above are illustrative representations of the types of metadata used in the monitoring workflow.
-
----
-
-## Source Handling
-
-```text
-Official Blog / Docs / GitHub
-            ↓
-     Automated Processing
-
-Search API Results
-            ↓
-     Automated Processing
-
-X / LinkedIn / Restricted Sources
-            ↓
-       Manual URL Input
-            ↓
-
-        Shared Review
-            ↓
-     Confirmed Dashboard
-```
-
----
-
-## Notes
-
-This demo intentionally uses sample records rather than real internal monitoring data.
-
-The original project includes weekly dashboard and historical record views, but the interface and confidential business data are not reproduced here.
+真实界面由 `pages/1_本周看板.py` 提供，包含七项指标和三个分类 Tab。历史界面为 `pages/4_历史动态.py`，支持筛选与 Excel 导出。此文件是文字示例，不是应用截图。
