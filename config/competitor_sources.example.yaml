@@ -1,1 +1,84 @@
-# Sanitized portfolio version based on the original project structure.
+Tavily:
+  official_domains:
+    - tavily.com
+    - www.tavily.com
+    - docs.tavily.com
+
+  official_github:
+    owners:
+      - tavily-ai
+    repositories:
+      - tavily-mcp
+      - tavily-python
+
+  official_social_accounts:
+    x:
+      - TavilyHQ
+      - TavilyAI
+      - tavily_ai
+    linkedin_slugs:
+      - tavily
+
+  event_domains:
+    - luma.com
+
+  partner_domains:
+    - composio.dev
+    - nvidia.com
+    - nvcf.nvidia.com
+
+  excluded_domains:
+    - advfn.com
+    - sacra.com
+    - delv.tools
+    - mcpshowcase.com
+    - thecompaniesapi.com
+
+
+Exa:
+  official_domains:
+    - exa.ai
+    - docs.exa.ai
+
+  official_github:
+    owners:
+      - exa-labs
+    repositories:
+      - exa-py
+
+  official_social_accounts:
+    x:
+      - ExaAILabs
+      - ExaDevelopers
+      - exa_ai
+    linkedin_slugs:
+      - exa-ai
+
+  event_domains:
+    - lu.ma
+    - luma.com
+
+  excluded_domains:
+    - advfn.com
+
+
+Brave:
+  official_domains:
+    - brave.com
+    - api.search.brave.com
+
+  official_github:
+    owners:
+      - brave
+    repositories:
+      - brave-browser
+
+  official_social_accounts:
+    x:
+      - brave
+      - BraveSearch
+    linkedin_slugs:
+      - brave-software
+
+  excluded_domains:
+    - advfn.com
