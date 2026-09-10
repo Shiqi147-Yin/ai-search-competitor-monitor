@@ -1,0 +1,237 @@
+# 官方来源主动巡检配置
+# 格式：竞品名 → website（按类型分入口）+ github（owner + 仓库列表）
+# 后续扩展 Brave 时，直接在同层级追加即可，不需改代码
+
+Tavily:
+  website:
+    homepage:
+      - https://www.tavily.com/
+
+    blog:
+      - https://www.tavily.com/blog
+
+    docs:
+      - https://docs.tavily.com/
+
+    integrations:
+      - https://docs.tavily.com/documentation/integrations
+
+    sitemap:
+      - https://www.tavily.com/sitemap.xml
+      - https://docs.tavily.com/sitemap.xml
+
+  github:
+    owner: tavily-ai
+
+    repositories:
+      - name: tavily-mcp
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+          - docs
+
+      - name: tavily-python
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+
+Exa:
+  website:
+    homepage:
+      - https://exa.ai/
+
+    blog:
+      - https://exa.ai/blog
+
+    docs:
+      - https://docs.exa.ai/
+
+    integrations:
+      # NOTE: docs.exa.ai/integrations returns 503/timeout — using sitemap-driven discovery instead
+      # TODO: re-verify when Exa updates docs routing
+
+    sitemap:
+      - https://exa.ai/sitemap.xml
+      - https://docs.exa.ai/sitemap.xml
+
+  github:
+    owner: exa-labs
+
+    repositories:
+      - name: exa-py
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+
+      - name: exa-js
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+
+      - name: exa-mcp-server
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+        # NOTE: only exa-mcp-server has an active main branch atom feed (exa-py/exa-js use non-main branch)
+
+  relevance_keywords:
+    core:
+      - search
+      - retrieval
+      - contents
+      - content
+      - crawl
+      - deep
+      - research
+      - websets
+      - highlights
+      - neural
+      - semantic
+    api_sdk:
+      - api
+      - sdk
+      - parameter
+      - deprecated
+      - endpoint
+      - response
+      - schema
+      - typed
+      - interface
+    integrations:
+      - mcp
+      - agent
+      - integration
+      - connector
+      - langchain
+      - llamaindex
+      - n8n
+      - vercel
+      - plugin
+    low_value:
+      - typo
+      - lint
+      - formatting
+      - prettier
+      - ci
+      - chore
+      - bump
+      - pin
+      - reformat
+      - whitespace
+
+Brave:
+  website:
+    homepage:
+      - https://brave.com/
+
+    blog:
+      # Brave Search News category — directly filtered to Search-related content
+      - https://brave.com/category/brave-search-news/
+      # General blog also scanned, but Search relevance filter will exclude Browser/Wallet/etc.
+      - https://brave.com/blog
+
+    docs:
+      # api.search.brave.com/app/documentation — ALL paths return HTTP 403, including sitemap & robots.txt
+      # Use brave.com/search/api/ sub-section via brave.com sitemap instead
+      # brave.com/en/sitemap.xml has 57 /search/api/ pages, all accessible (HTTP 200)
+      # These are guides/glossary/marketing pages, NOT API parameter references
+      # lastmod dates: mostly 2026-07-01 (bulk batch), no updates after 2026-07-01
+      # docs_status = sitemap_available (via brave.com sitemap), but content = guides only
+      - https://brave.com/search/api/
+
+    sitemap:
+      - https://brave.com/en/sitemap.xml
+      # 1141 URLs, 168 search-related. Includes /search/api/, /category/brave-search-news/, etc.
+
+  github:
+    owner: brave
+
+    repositories:
+      - name: brave-search-skills
+        priority: high
+        monitor:
+          - commits
+          - releases
+          - tags
+          - readme
+        # Official Search API skills for AI coding agents. Last active 2026-04.
+        # GitHub updates may be sparse — 0 results in a window is normal for Brave Search.
+
+
+  relevance_keywords:
+    core:
+      - search
+      - search-api
+      - search api
+      - web search
+      - news search
+      - image search
+      - video search
+      - local search
+      - place search
+      - llm context
+      - llm-context
+      - goggles
+      - grounding
+      - independent search
+    api_sdk:
+      - api
+      - endpoint
+      - parameter
+      - deprecated
+      - response schema
+      - rate limit
+      - subscription
+      - token
+      - sdk
+    integrations:
+      - mcp
+      - agent
+      - openai
+      - anthropic
+      - bedrock
+      - snowflake
+      - openclaw
+      - claude
+    low_value:
+      - browser
+      - wallet
+      - rewards
+      - vpn
+      - shields
+      - leo
+      - android
+      - ios
+      - sync
+      - crypto
+      - nft
+      - near
+      - solana
+      - brave games
+      - brave talk
+      - de-amp
+      - shred
+      - typo
+      - lint
+      - ci
+      - formatting
+      - dependency
+
+# Brave benchmark 占位符
+
+

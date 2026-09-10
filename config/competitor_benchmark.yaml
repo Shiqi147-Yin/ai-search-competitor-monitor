@@ -1,0 +1,77 @@
+Tavily:
+  benchmark_period:
+    start: "2026-07-08"
+    end: "2026-07-17"
+
+  expected_events:
+    - id: tavily_keyless_search_20260714
+      title: "What keyless search really means for your data"
+      category: "产品与功能"
+      expected_date: "2026-07-14"
+      primary_url: "https://www.tavily.com/blog/What-keyless-search-really-means-for-your-data"
+      expected_domains:
+        - tavily.com
+      keywords:
+        - keyless search
+        - API key
+        - data governance
+
+    - id: tavily_composio_dev_cup_20260717
+      title: "Dev Cup: Tavily x Composio"
+      category: "市场与运营"
+      expected_date: "2026-07-17"
+      primary_url: "https://luma.com/tavily-h550"
+      expected_domains:
+        - luma.com
+      keywords:
+        - Tavily
+        - Composio
+        - Dev Cup
+        - developer event
+
+    - id: tavily_nemoclaws_integration_20260716
+      title: "Nemo Deep Agents - Tavily Docs"
+      category: "生态与集成"
+      expected_date: "2026-07-16"
+      primary_url: "https://docs.tavily.com/documentation/integrations/nemo-deepagents"
+      expected_domains:
+        - docs.tavily.com
+      keywords:
+        - NVIDIA
+        - NemoClaw
+        - Deep Agents
+        - integration
+
+    - id: tavily_mcp_timeout_20260710
+      title: "tavily-mcp Research streaming timeout update"
+      category: "产品与功能"
+      expected_date: "2026-07-10"
+      primary_url: "https://github.com/tavily-ai/tavily-mcp/commits/main/?since=2026-07-08&until=2026-07-16"
+      expected_domains:
+        - github.com
+      keywords:
+        - tavily-mcp
+        - "0.2.21"
+        - timeout
+        - research
+        - streaming
+
+Exa:
+  benchmark_period:
+    start: "2026-07-27"
+    end: "2026-08-10"
+
+  expected_events: []
+  # NOTE: 首轮通过真实巡检结果人工确认后再建立 benchmark 事件
+  # 待补充格式参考：
+  # - id: exa_blog_example_20260801
+  #   title: "Example Exa Blog Post"
+  #   category: "产品与功能"
+  #   expected_date: "2026-08-01"
+  #   primary_url: "https://exa.ai/blog/example"
+  #   expected_domains:
+  #     - exa.ai
+  #   keywords:
+  #     - exa
+  #     - search
+

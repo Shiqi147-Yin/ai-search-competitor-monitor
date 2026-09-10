@@ -1,0 +1,104 @@
+# 英文 Query 模板（分来源定向版）
+# 变量：{competitor} {time_window} {start_date} {end_date}
+# 新增来源精确模板，避免宽泛 Query 被第三方聚合页占用
+
+templates:
+  product_and_features:
+    query_type: product_and_features
+    template: >
+      Latest {competitor} product updates, API changes, pricing updates, search features,
+      research features, MCP updates, SDK releases, and official announcements from the past {time_window} days
+
+  ecosystem_and_integrations:
+    query_type: ecosystem_and_integrations
+    template: >
+      Latest {competitor} integrations with AI agents, coding agents, AI IDEs, MCP clients,
+      workflow platforms, model providers, and developer tools from the past {time_window} days
+
+  github:
+    query_type: github
+    template: >
+      Latest meaningful {competitor} GitHub updates, repository commits, releases,
+      documentation changes, integrations, skills, and developer tooling from the past {time_window} days
+
+  market_and_events:
+    query_type: market_and_events
+    template: >
+      Latest {competitor} events, webinars, hackathons, developer community activities,
+      partnerships, blog posts, and official social announcements from the past {time_window} days
+
+  x_official:
+    query_type: x_official
+    template: >
+      Latest official {competitor} X posts and official announcements on X (Twitter)
+      from the past {time_window} days
+
+  linkedin_official:
+    query_type: linkedin_official
+    template: >
+      Latest official {competitor} LinkedIn posts and official company announcements
+      from the past {time_window} days
+
+  # ── 精确来源定向模板（推荐用于高质量检索）──────────────────
+
+  official_blog_targeted:
+    query_type: official_blog_targeted
+    source_target: blog
+    template: >
+      Find official {competitor} blog posts published between {start_date} and {end_date}.
+      Return only pages from {competitor_domain}/blog.
+      Focus on product updates, search features, API changes, pricing, research features,
+      and official announcements.
+      Exclude third-party articles, older pages, and aggregator sites.
+
+  official_docs_targeted:
+    query_type: official_docs_targeted
+    source_target: docs
+    template: >
+      Find new or updated {competitor} documentation and integration pages published or updated
+      between {start_date} and {end_date}.
+      Prioritize {competitor_docs_domain} pages about integrations, coding agents, MCP, NVIDIA,
+      model providers, and developer tools.
+      Exclude unrelated tutorials and older documentation.
+
+  github_targeted:
+    query_type: github_targeted
+    source_target: github
+    template: >
+      Find meaningful {competitor} GitHub updates committed or released between {start_date} and {end_date}.
+      Focus on official repositories under github.com/{github_owner},
+      especially commits, releases, version changes, Research streaming, timeout handling,
+      MCP, SDK, documentation, and integrations.
+      Exclude third-party repositories and generic GitHub topic pages.
+
+  events_targeted:
+    query_type: events_targeted
+    source_target: events
+    template: >
+      Find official {competitor} events, developer meetups, webinars, hackathons, and partner events
+      announced or held between {start_date} and {end_date}.
+      Include {competitor} events hosted on luma.com and official partner event pages.
+      Focus on {competitor}, developer community, and agent builders.
+      Exclude generic tech conference listings.
+
+  social_targeted:
+    query_type: social_targeted
+    source_target: social
+    template: >
+      Find official {competitor} announcements posted between {start_date} and {end_date}
+      on X or LinkedIn about product updates, integrations, GitHub releases, events, and partnerships.
+      Prioritize links that point to the official {competitor} blog, docs, GitHub, or event pages.
+      Exclude third-party commentary and repost threads.
+
+# ── 来源范围 → query_type 映射 ──────────────────────────────
+
+source_scope_mapping:
+  "官网": [official_blog_targeted, official_docs_targeted]
+  "Blog": [official_blog_targeted]
+  "Docs": [official_docs_targeted]
+  "GitHub": [github_targeted]
+  "X": [social_targeted, x_official]
+  "LinkedIn": [social_targeted, linkedin_official]
+  "Event": [events_targeted]
+  "All": [official_blog_targeted, official_docs_targeted, github_targeted, events_targeted, social_targeted]
+  "All_basic": [product_and_features, ecosystem_and_integrations, github, market_and_events]

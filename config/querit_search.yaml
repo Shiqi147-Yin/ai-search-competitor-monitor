@@ -1,0 +1,22 @@
+# 默认检索配置
+default_time_window: 7          # 天数
+default_result_count: 10        # 每条 Query 返回数
+max_total_results: 50           # 单次 run 最大总结果数
+query_language: en              # 固定英文，不得改为中文
+auto_enrich: true               # 是否自动补抓取
+request_timeout: 30
+max_retries: 1
+
+enabled_competitors:
+  - Tavily
+  - Exa
+  - Brave
+
+enabled_sources:
+  - 官网
+  - Blog
+  - Docs
+  - GitHub
+  - X
+  - LinkedIn
+  - Event

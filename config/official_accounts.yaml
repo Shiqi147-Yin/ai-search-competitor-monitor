@@ -1,0 +1,35 @@
+# 官方社交账号映射
+# 用于从 X / LinkedIn URL 中提取 username 后识别竞品
+# 仅填写已确认的账号，不确定的保留待补充标注
+
+Tavily:
+  x:
+    - TavilyHQ
+    - TavilyAI
+    - tavily_ai
+    - tavilyresearch
+  linkedin_slugs:
+    - tavily
+    - tavily-ai
+
+Exa:
+  x:
+    - ExaAILabs
+    - ExaDevelopers
+    - exa_ai
+  linkedin_slugs:
+    - exa-ai
+    - exa-labs
+
+Brave:
+  x:
+    - brave
+    - BraveSearch
+    - bravesearch
+  linkedin_slugs:
+    - brave-software
+
+Querit:
+  x: []
+  linkedin_slugs:
+    - querit

@@ -1,0 +1,43 @@
+# 来源能力测试预设链接
+# 空字段表示暂无确认可用的测试链接，不虚构
+
+Tavily:
+  official_blog:
+    - "https://www.tavily.com/blog/What-keyless-search-really-means-for-your-data"
+  docs:
+    - "https://docs.tavily.com/documentation/integrations/nemo-deepagents"
+  github:
+    - "https://github.com/tavily-ai/tavily-python"
+  x: []
+  linkedin: []
+  event:
+    - "https://luma.com/tavily-h550"
+
+Exa:
+  official_blog:
+    - "https://exa.ai/blog"
+  docs:
+    - "https://docs.exa.ai/reference/getting-started"
+  github:
+    - "https://github.com/exa-labs/exa-py"
+  x: []
+  linkedin: []
+
+Brave:
+  official_blog:
+    - "https://brave.com/blog/"
+  docs:
+    - "https://api.search.brave.com/app/documentation/web-search/get-started"
+  github:
+    - "https://github.com/brave/brave-browser"
+  x: []
+  linkedin: []
+
+GitHub_examples:
+  repository:
+    - "https://github.com/tavily-ai/tavily-python"
+  commit: []
+  release:
+    - "https://github.com/tavily-ai/tavily-python/releases"
+  readme_docs: []
+  integrations: []

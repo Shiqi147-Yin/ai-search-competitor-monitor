@@ -1,0 +1,52 @@
+# 来源能力配置（校准版）
+# automation_level: A=可稳定自动抓取, B=可部分自动抓取+专项处理, C=主要依赖人工补充
+# fetch_strategy: generic_web / github_special / manual_fallback
+
+sources:
+  official_blog:
+    automation_level: A
+    default_action: auto_fetch
+    fetch_strategy: generic_web
+    description: "竞品官网博客，可稳定抓取标题和描述"
+
+  official_docs:
+    automation_level: A
+    default_action: auto_fetch
+    fetch_strategy: generic_web
+    description: "竞品技术文档站，通常渲染为静态 HTML"
+
+  github:
+    automation_level: B
+    default_action: github_analysis
+    fetch_strategy: github_special
+    description: "GitHub 仓库/提交/Release/README，使用 GitHub 专项处理（Atom feed / raw / API 匿名请求）；commits 网页受限不代表 C 级"
+
+  x:
+    automation_level: B
+    default_action: try_fetch_then_manual
+    fetch_strategy: generic_web
+    description: "X 帖子，可部分抓取标题，需人工复核正文和发布时间"
+
+  linkedin:
+    automation_level: C
+    default_action: manual_supplement
+    fetch_strategy: manual_fallback
+    description: "LinkedIn 动态，访问受限，主要依赖人工补充"
+
+  discord:
+    automation_level: C
+    default_action: manual_supplement
+    fetch_strategy: manual_fallback
+    description: "Discord 频道，需登录，主要依赖人工补充"
+
+  event:
+    automation_level: B
+    default_action: try_fetch_then_manual
+    fetch_strategy: generic_web
+    description: "Luma 等活动页面，先尝试抓取，失败后人工补充"
+
+  other:
+    automation_level: B
+    default_action: try_fetch_then_manual
+    fetch_strategy: generic_web
+    description: "未分类来源，先尝试抓取"
