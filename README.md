@@ -1,90 +1,130 @@
 # AI Search Competitor Monitor
 
-A monitoring dashboard for continuously tracking product and ecosystem updates
-across AI Search API competitors.
+A competitor monitoring dashboard for tracking public updates across AI Search API products.
 
-The project focuses on improving update discovery across fragmented sources
-such as official websites, documentation, GitHub, and social channels.
+The system combines official-source crawling, Search API-based discovery, manual URL input for restricted sources, and a review workflow to support recurring competitor research.
 
-## Problem
+## Monitored Competitors
 
-Competitor updates are often distributed across multiple channels, and relying
-only on keyword search can lead to missed updates, duplicates, and high manual
-review costs.
+The project was primarily tested with:
 
-This project explores a monitoring workflow that combines:
+- Tavily
+- Exa
+- Brave Search
 
-- Official-source monitoring
-- Search API-based discovery
-- Manual supplementation for restricted sources
+## Monitoring Sources
 
-## Core Workflow
-
-Competitor Configuration  
-↓  
-Official Source Monitoring  
-↓  
-Search API Discovery  
-↓  
-Manual Supplementation  
-↓  
-Filtering & Deduplication  
-↓  
-Update Classification  
-↓  
-Summary & Unified Dashboard
-
-## Monitored Sources
+The monitoring workflow covers public sources including:
 
 - Official websites
 - Blogs
-- Changelogs
 - Documentation
+- Changelogs
 - GitHub
-- Social and community links added manually when needed
+- X
+- LinkedIn
+- Discord
+- Event and partner pages
 
-## Monitoring Dimensions
+Different sources are handled differently depending on their accessibility and page structure.
 
-- Product updates
-- API and documentation changes
-- GitHub activity
-- Ecosystem integrations
-- Partnerships
-- Events
-- Use cases
-- Benchmarks
+## Core Workflow
+
+```text
+Competitor / Source / Time Window
+                ↓
+        Information Discovery
+       ↙        ↓         ↘
+Official      Search API     Manual URL
+Sources       Discovery      Supplement
+       ↘        ↓         ↙
+          Result Processing
+                ↓
+     Freshness / Relevance Check
+                ↓
+        Deduplication & Review
+                ↓
+          Confirmed Updates
+                ↓
+        Weekly Dashboard / History
+```
 
 ## Key Capabilities
 
-- Multi-competitor configuration
-- Source-specific monitoring
-- Time-window filtering
-- Search API supplementation
-- Result filtering
-- Deduplication
-- Update classification
-- Structured summaries
-- Unified dashboard display
+- Competitor-specific source configuration
+- Source-targeted English query generation
+- Time-window based retrieval
+- Official entry-page detection
+- Blog and documentation drill-down
+- GitHub repository and commit retrieval
+- Search API supplementary discovery
+- Manual URL import for restricted sources
+- Freshness checks
+- Source authority and relevance classification
+- URL deduplication
+- Review before final dashboard entry
+- Weekly dashboard and historical record views
 
-## Design Iteration
+## Official-Source Monitoring
 
-The initial monitoring approach relied heavily on keyword-based retrieval.
+For structured official sources, the system can identify entry pages and drill down into individual updates.
 
-During testing, this approach showed limitations in coverage and consistency.
+Examples include:
 
-The workflow was redesigned around:
+- Blog index → individual blog posts
+- Documentation index → updated documentation pages
+- GitHub repository → commits or releases
 
-Official Source Monitoring  
-+ Search API Discovery  
-+ Human Review
+Results are evaluated against the selected monitoring time window before entering the review workflow.
 
-This structure improved the completeness of competitor update discovery while
-keeping manual intervention for sources that were difficult to automate.
+## Search API Discovery
+
+Search API retrieval is used as an additional discovery path.
+
+Queries are generated separately for source types such as:
+
+- Official Blog
+- Documentation
+- GitHub
+- Events
+- Social announcements
+
+Queries include competitor-specific source constraints and explicit date ranges.
+
+## Manual Supplementation
+
+Some social and community platforms cannot be fetched reliably through the automated pipeline.
+
+For sources such as X, LinkedIn, and Discord, public URLs can be added manually and processed through the same downstream workflow.
+
+## Review Workflow
+
+Retrieved records are not treated as confirmed competitor updates immediately.
+
+The system supports:
+
+- Freshness validation
+- Source authority checks
+- Competitor relevance classification
+- Duplicate detection
+- Manual review
+- Confirmation before dashboard entry
+
+## Validation
+
+The project includes automated tests for major components such as:
+
+- Database operations
+- URL deduplication
+- GitHub parsing and analysis
+- Restricted-source handling
+- Excel / URL import
+- Dashboard filtering
+- Review workflow
+- Source-targeted query generation
 
 ## Repository Scope
 
-This repository is a sanitized reconstruction created for portfolio purposes.
+This repository is a sanitized reconstruction for portfolio purposes.
 
-It does not contain proprietary code, internal APIs, credentials, confidential
-business data, internal documentation, or non-public information from previous
-employers.
+It does not contain proprietary code, credentials, internal infrastructure, confidential business data, or non-public information from previous employers.
