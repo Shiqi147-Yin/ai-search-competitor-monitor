@@ -2,15 +2,15 @@
 
 ## Overview
 
-The AI Search Competitor Monitor is a monitoring dashboard designed to track public updates across AI Search API competitors.
+The AI Search Competitor Monitor is an independent monitoring dashboard designed for recurring research on AI Search API competitors.
 
-The system combines three information discovery paths:
+The system separates information discovery into three paths:
 
 1. Official-source monitoring
-2. Search API-based discovery
-3. Manual supplementation for sources that are difficult to access automatically
+2. Search API discovery
+3. Manual URL input
 
-The goal is to reduce missed updates caused by relying only on keyword search, while keeping the monitoring workflow structured and reviewable.
+All discovered records then enter a shared processing and review workflow.
 
 ---
 
@@ -18,174 +18,218 @@ The goal is to reduce missed updates caused by relying only on keyword search, w
 
 ```mermaid
 flowchart TD
-    A[Competitor Configuration]
+    A[Monitoring Configuration]
 
     A --> B[Official Source Monitoring]
     A --> C[Search API Discovery]
-    A --> D[Manual Source Input]
+    A --> D[Manual URL Import]
 
-    B --> E[Raw Updates]
+    B --> E[Raw Results]
     C --> E
     D --> E
 
-    E --> F[Filtering]
-    F --> G[Deduplication]
-    G --> H[Update Classification]
-    H --> I[Summary Generation]
-    I --> J[Unified Dashboard]
+    E --> F[Freshness Check]
+    F --> G[Source & Relevance Evaluation]
+    G --> H[URL Deduplication]
+    H --> I[Review Queue]
+
+    I --> J[Confirmed Records]
+    J --> K[Weekly Dashboard]
+    J --> L[History]
 ```
 
 ---
 
-## 1. Competitor Configuration
+## 1. Monitoring Configuration
 
-The system maintains monitoring configurations for each competitor.
+Monitoring behavior is configured by competitor, source scope, and time window.
 
-Configuration may include:
+The project contains competitor-specific configurations for sources such as:
 
-- Competitor name
-- Official website
-- Blog or changelog pages
-- Documentation pages
-- GitHub repositories
-- Monitoring keywords
-- Search queries
-- Time window
+- Official domains
+- Documentation domains
+- GitHub organizations and repositories
+- Official social accounts
+- Event domains
+- Selected partner domains
+- Excluded low-value domains
 
-Different competitors can use different monitoring configurations depending on their public information structure.
+The main competitors used during development were Tavily, Exa, and Brave Search.
 
 ---
 
 ## 2. Official Source Monitoring
 
-Official-source monitoring is used as the primary discovery path.
+Official-source monitoring handles structured first-party sources.
 
-Typical sources include:
+### Entry-page Detection
 
-- Official websites
-- Product blogs
-- Changelogs
-- Documentation
+Some URLs are treated as entry pages rather than final update records.
+
+Examples include:
+
+- Blog index pages
+- Documentation index pages
 - GitHub repositories
 
-The system checks these sources for newly published or updated public content.
+Entry pages are not directly imported as competitor updates.
 
-This path is designed to improve coverage compared with relying only on general-purpose keyword search.
+### Drill-down
+
+The system drills down from entry pages to specific content.
+
+Examples tested during development include:
+
+```text
+Blog Index
+    ↓
+Individual Blog Articles
+```
+
+```text
+Documentation Index
+    ↓
+Documentation Pages
+```
+
+```text
+GitHub Repository
+    ↓
+Commits / Releases
+```
+
+For documentation pages, sitemap metadata can be used to identify update timestamps.
+
+For GitHub repositories, repository activity can be resolved into specific commits or releases.
 
 ---
 
 ## 3. Search API Discovery
 
-Search API retrieval is used as a supplementary discovery method.
+Search API retrieval is used as a supplementary discovery path.
 
-It is mainly used to identify updates that may not be directly captured through the predefined official-source list.
-
-Queries can be adjusted based on:
+The query builder generates English queries based on:
 
 - Competitor
 - Source type
-- Update category
-- Date range
-- Monitoring objective
+- Monitoring time window
 
-Search results are then passed into the same downstream processing pipeline.
+Source-targeted query types include:
 
----
-
-## 4. Manual Source Input
-
-Some sources are difficult to monitor automatically because of platform access limitations or unstable page structures.
-
-For these sources, relevant public URLs can be added manually.
-
-Typical examples include:
-
-- Social media posts
-- Community discussions
-- Event pages
-- Partnership announcements
-
-Manually added URLs are processed together with automatically discovered results so that all updates can be reviewed in one place.
-
----
-
-## 5. Filtering and Deduplication
-
-Raw monitoring results may contain irrelevant, repeated, or overlapping information.
-
-The processing layer performs:
-
-- Relevance filtering
-- Date filtering
-- Source validation
-- Duplicate removal
-- Similar-update consolidation
-
-This step reduces noise before updates are displayed in the dashboard.
-
----
-
-## 6. Update Classification
-
-Relevant updates are categorized into structured monitoring dimensions.
-
-Typical categories include:
-
-- Product updates
-- API and documentation changes
-- GitHub activity
-- Ecosystem integrations
-- Partnerships
+- Official Blog
+- Documentation
+- GitHub
 - Events
-- Use cases
-- Benchmarks
+- Social announcements
 
-Structured classification makes weekly review and cross-competitor comparison easier.
-
----
-
-## 7. Summary and Dashboard
-
-Processed updates are summarized and displayed in a unified dashboard.
-
-The dashboard is designed to support:
-
-- Competitor-level review
-- Source-level review
-- Category filtering
-- Time-window filtering
-- Weekly update aggregation
-
-The final output is intended to make competitor changes easier to review without repeatedly checking each source manually.
+Queries contain explicit start and end dates and can include competitor-specific domain or GitHub constraints.
 
 ---
 
-## Monitoring Strategy
+## 4. Manual URL Import
 
-The final monitoring strategy can be summarized as:
+Restricted or unstable sources are handled through manual URL input.
 
-```text
-Official Source Monitoring
-        +
-Search API Discovery
-        +
-Manual Supplementation
-        ↓
-Filtering & Deduplication
-        ↓
-Classification & Summary
-        ↓
-Unified Dashboard
-```
+This applies especially to sources such as:
 
-The three discovery paths are complementary rather than interchangeable.
+- X
+- LinkedIn
+- Discord
 
-Official sources provide higher-confidence updates, Search API retrieval improves discovery coverage, and manual supplementation handles sources that are difficult to automate.
+The original public URL is retained even when automated fetching is restricted.
+
+Manually supplied URLs enter the same processing and review workflow as automatically discovered records.
+
+---
+
+## 5. Freshness Processing
+
+Each discovered record is evaluated against the selected monitoring window.
+
+Possible results include records inside or outside the monitoring window.
+
+For different source types, the effective date may come from fields such as:
+
+- Published date
+- Updated date
+- Sitemap last-modified timestamp
+- GitHub activity timestamp
+
+---
+
+## 6. Source and Relevance Evaluation
+
+The project evaluates whether a result comes from an authoritative source and whether it is relevant to the target competitor.
+
+Source categories used in the implementation include:
+
+- Official
+- First-party ecosystem
+- Reputable third party
+- Unknown
+- Low-value aggregator
+
+Competitor relevance is also classified before records are selected for review.
+
+---
+
+## 7. Deduplication
+
+URLs are normalized before records are stored or imported.
+
+Duplicate URLs are detected to prevent repeated records from entering the database.
+
+Duplicate checks are also applied during batch import.
+
+---
+
+## 8. Review Workflow
+
+Retrieved results are not automatically treated as confirmed updates.
+
+Records enter a review workflow where they can be checked before confirmation.
+
+The project includes separate application pages for:
+
+- Import
+- Review
+- Dashboard
+- History
+
+Only confirmed records are intended to appear in the main monitoring output.
+
+---
+
+## 9. Dashboard and History
+
+The dashboard provides a weekly view of confirmed competitor updates.
+
+The system also maintains a history view for previously confirmed records.
+
+Dashboard data can be filtered by competitor.
+
+---
+
+## Validation
+
+The project includes automated tests covering:
+
+- Database operations
+- Dashboard filtering
+- History records
+- Duplicate detection
+- Excel and URL import
+- GitHub URL parsing
+- GitHub update classification
+- Restricted-source handling
+- Review and import flows
+- Source-targeted query generation
+- Freshness processing
 
 ---
 
 ## Repository Scope
 
-This repository presents a sanitized reconstruction of the project architecture.
+This document describes a sanitized reconstruction of the system architecture.
 
-It does not expose proprietary code, internal infrastructure, private business data, credentials, or non-public information.
+Internal credentials, proprietary infrastructure, business data, and non-public implementation details are excluded.
