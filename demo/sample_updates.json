@@ -1,20 +1,50 @@
 [
   {
-    "competitor": "Example Search API",
-    "date": "2026-09-01",
+    "competitor": "Example A",
     "source_type": "official_blog",
+    "source_url": "https://example.com/blog/update-a",
+    "published_at": "2026-08-10",
+    "monitoring_window_start": "2026-08-08",
+    "monitoring_window_end": "2026-08-14",
+    "freshness_status": "within_window",
+    "official_source": true,
+    "relevance_status": "relevant",
+    "duplicate_status": "unique",
+    "review_status": "confirmed",
     "category": "product_update",
     "title": "Example product update",
-    "url": "https://example.com/update",
-    "summary": "A sample competitor update used for portfolio demonstration."
+    "summary": "Sanitized example of a confirmed product update."
   },
   {
-    "competitor": "Example Search API",
-    "date": "2026-09-03",
+    "competitor": "Example B",
     "source_type": "github",
-    "category": "developer_ecosystem",
+    "source_url": "https://github.com/example/project/commit/example",
+    "published_at": "2026-08-11",
+    "monitoring_window_start": "2026-08-08",
+    "monitoring_window_end": "2026-08-14",
+    "freshness_status": "within_window",
+    "official_source": true,
+    "relevance_status": "relevant",
+    "duplicate_status": "unique",
+    "review_status": "pending",
+    "category": "ecosystem_update",
     "title": "Example GitHub update",
-    "url": "https://github.com/example/project",
-    "summary": "A sample developer ecosystem update."
+    "summary": "Sanitized example of a discovered GitHub update awaiting review."
+  },
+  {
+    "competitor": "Example C",
+    "source_type": "manual_url",
+    "source_url": "https://example.com/social/post",
+    "published_at": "2026-08-12",
+    "monitoring_window_start": "2026-08-08",
+    "monitoring_window_end": "2026-08-14",
+    "freshness_status": "within_window",
+    "official_source": false,
+    "relevance_status": "relevant",
+    "duplicate_status": "unique",
+    "review_status": "confirmed",
+    "category": "partnership",
+    "title": "Example manually supplied update",
+    "summary": "Sanitized example of a public update added through manual URL input."
   }
 ]
