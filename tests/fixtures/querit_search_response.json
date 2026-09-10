@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "title": "[MOCK] Tavily launches streaming search API",
+      "url": "https://docs.tavily.com/changelog/2026-07-15-streaming",
+      "content": "Tavily announces the new streaming search API with MCP support and agent skills for AI agents and LLM workflows.",
+      "summary": "Tavily releases streaming search API with MCP support and agent skills.",
+      "published_date": "2026-07-15",
+      "score": 0.97,
+      "source": "https://docs.tavily.com"
+    },
+    {
+      "title": "[MOCK] Exa integrates with Cerebras for low-latency search",
+      "url": "https://exa.ai/blog/cerebras-integration-2026",
+      "content": "Exa announces a new integration with Cerebras high-speed inference platform, combining neural search with ultra-fast inference for real-time agent workflows.",
+      "summary": "Exa partners with Cerebras to deliver low-latency search and inference.",
+      "published_date": "2026-07-14",
+      "score": 0.94,
+      "source": "https://exa.ai"
+    },
+    {
+      "title": "[MOCK] Brave Search API now supports place search",
+      "url": "https://brave.com/blog/place-search-api-2026",
+      "content": "Brave Search API adds support for local place search and POI discovery, extending its API capabilities to location-based queries at competitive pricing.",
+      "summary": "Brave Search API adds place search with POI discovery at 6x lower cost than competitors.",
+      "published_date": "2026-07-12",
+      "score": 0.91,
+      "source": "https://brave.com"
+    }
+  ]
+}
