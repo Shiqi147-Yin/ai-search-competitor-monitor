@@ -1,1 +1,20 @@
-
+[
+  {
+    "competitor": "Example Search API",
+    "date": "2026-09-01",
+    "source_type": "official_blog",
+    "category": "product_update",
+    "title": "Example product update",
+    "url": "https://example.com/update",
+    "summary": "A sample competitor update used for portfolio demonstration."
+  },
+  {
+    "competitor": "Example Search API",
+    "date": "2026-09-03",
+    "source_type": "github",
+    "category": "developer_ecosystem",
+    "title": "Example GitHub update",
+    "url": "https://github.com/example/project",
+    "summary": "A sample developer ecosystem update."
+  }
+]
